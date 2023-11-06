@@ -1,0 +1,27 @@
+.navbar{
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-logo{
+        display: flex;
+        align-items: center;
+    }
+    &-list{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+       
+        li{
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+.avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
