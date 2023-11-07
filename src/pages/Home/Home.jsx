@@ -3,7 +3,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Post from '../../components/Post/Post';
 
 import AddPost from '../../components/AddPost/AddPost';
-
+import { Outlet } from 'react-router-dom';
 import './home.scss';
 
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
@@ -16,9 +16,7 @@ export default function Home() {
         <Navbar></Navbar>
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <Post></Post>
-
-        <AddPost></AddPost>
+      <Outlet />
       </Content>
       {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer> */}
     </Layout>

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Button, Dropdown, Space, Avatar } from 'antd';
+import {Button, Dropdown, Space, Avatar,Tag  } from 'antd';
 import moment from 'moment';
 import {MoreOutlined,HeartOutlined} from '@ant-design/icons';
 import './post.scss'
@@ -53,11 +53,10 @@ export default function Post() {
           <div className="post-timestamp">
             {convertToTimeAgo('2022-02-02')}
           </div>
-
         </Space>
       </Space>
       <Dropdown className='avatar' placement="bottomRight"  menu={{
-      items,
+        items,
     }}>
 
       <MoreOutlined  style={{fontSize:24}}/>
@@ -65,6 +64,10 @@ export default function Post() {
       </div> 
     <div className="post-content">
       
+     </div>
+
+     <div className='post-tag'>
+        <Tag>Tag 1</Tag>
      </div>
     <div className="post-action">
       <Space className="post-like">

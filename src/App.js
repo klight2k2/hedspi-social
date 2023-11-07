@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
+import AddPost from "./components/AddPost/AddPost";
 function App() {
   const { currentUser } = useContext(AuthContext);
 
@@ -31,7 +32,10 @@ function App() {
           />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="home" element={<Home />} />
+          <Route path="/" element={<Home />} >
+          <Route path="create-post" element={<AddPost />} />
+
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
