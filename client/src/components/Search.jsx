@@ -46,6 +46,7 @@ const Search = () => {
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
     try {
+      console.log("idc",combinedId)
       const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {

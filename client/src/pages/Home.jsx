@@ -6,9 +6,8 @@ const Home = () => {
   return (
     <div className='home'>
       <div className="container">
-        {/* <Sidebar/>
-        <Chat/> */}
-        hello
+        <Sidebar/>
+        <Chat/>
       </div>
     </div>
   )
