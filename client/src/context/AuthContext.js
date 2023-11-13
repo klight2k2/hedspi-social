@@ -10,6 +10,11 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      const token=user.accessToken
+      console.log("token",token);
+      if(token){
+        localStorage.setItem("@token",token)
+      }
       console.log(user);
     });
 

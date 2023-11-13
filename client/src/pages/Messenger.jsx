@@ -1,8 +1,8 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
-import Chat from '../components/Chat'
+import Chat from '../components/Chat/Chat'
 
-const Home = () => {
+const Messenger = () => {
   return (
     <div className='home'>
       <div className="container">
@@ -13,4 +13,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Messenger

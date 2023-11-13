@@ -11,7 +11,7 @@ import PostService from '../../service/PostService';
 const { Option } = Select;
 
 export default function AddPost() {
-  const [value, setValue] = useState('');
+  const [content, setContent] = useState('');
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
   const { currentUser } = useContext(AuthContext);
@@ -54,13 +54,18 @@ export default function AddPost() {
   };
   const handleChangeValue = value => {
     console.log(value);
-    setValue(value);
+    setContent(value);
   };
 
   const handleChangeTag = selectedValues => {
     setTags(selectedValues);
     console.log('Selected values:', selectedValues);
   };
+  const handlCancel=async()=>{
+    // setTags([])
+    // setContent([])
+    navigate('/home');
+  }
   const handlePost=async()=>{
     console.log("tags",tags)
     if(tags.length<=0){
@@ -73,7 +78,7 @@ export default function AddPost() {
         return;
     }
 
-    if(value.length<=0){
+    if(content.length<=0){
       message.open(
         {
           type: 'error',
@@ -83,21 +88,21 @@ export default function AddPost() {
       return;
     }
 
-    console.log("content",value)
+  
     const post={
       tags:tags,
-      content:value,
-      user_id:currentUser.uid,
+      content:content,
+      uid:currentUser.uid,
       // is_approved:false,
       // comments:[],
       // like:[],
       // created_at:serverTimestamp(),
       // updated_at:serverTimestamp(),
     }
-    const result= await PostService.getAllPost();
-    console.log(result.json())
-    // await   addDoc(collection(db, "post"), post); 
-    // navigate('/');
+    console.log("content",post)
+    const result= await PostService.uploadPost(post);
+    console.log( result)
+    navigate('/home');
     
     
   }
@@ -120,13 +125,13 @@ export default function AddPost() {
         className="quill-edit"
         modules={module}
         theme="snow"
-        value={value}
+        value={content}
         onChange={handleChangeValue}
         style={{ background: '#fff' }}
       />
 
       <Space className="float-btn">
-        <Button>Cancel</Button>
+        <Button >Cancel</Button>
         <Button type="primary" onClick={handlePost}>Post</Button>
       </Space>
     </Space>

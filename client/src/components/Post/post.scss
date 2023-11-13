@@ -16,9 +16,9 @@
         font-size: 12px;
     }
 
-    &-image{
+    img{
         object-fit: contain;
-        width: 100%;
+        max-width: 100%;
 
     }
 
@@ -30,16 +30,21 @@
 
     &-input{
         border: none;
+        width: 100%;
+        margin-left: 16px;
+        padding: 8px 0;
+        border-bottom: 1px solid #d5d5d5;
         &:focus{
             outline: none !important;
         }
     }
 
     &-add{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-bottom: 1px solid #000;
+      width: 100%;
+      .ant-space-item:nth-child(2){
+        flex:1;
+      }
+       
     }
 }
 
@@ -47,3 +52,43 @@
 .active{
     border-bottom: 1px solid #1677FF;
 }
+
+
+input[name="readmore"]{
+    display: none;
+}
+
+.post-username{
+    font-weight: bold;
+}
+
+.post-comment-container{
+    display: flex;
+    
+
+
+}
+
+.post-content{
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.post-comments{
+    background-color: #f0f2f5;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+// .post-content::before{
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     content: "";
+//     width: 100%;
+//     height: 100px;
+//     transition: 0.5s ease-in-out;
+//     background-image: linear-gradient(to top, #fff,transparent);
+// }

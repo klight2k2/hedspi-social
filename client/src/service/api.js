@@ -8,8 +8,9 @@ class Http {
       body: JSON.stringify(data),
       headers: new Headers({
         'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": "Bearer " + localStorage.getItem("@token")
       }),
-    });
+    }).then(response => response.json()).then(response => response.data);
   };
 
   static get=async (url)=>{
@@ -17,8 +18,10 @@ class Http {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": "Bearer " + localStorage.getItem("@token")
         }),
-      });
+      }).then(response => response.json()).then(response => response.data);
+      ;
   }
 
   static delete=async (url)=>{
@@ -26,6 +29,7 @@ class Http {
         method: 'DELETE',
         headers: new Headers({
           'Content-Type': 'application/json; charset=UTF-8',
+          "Authorization": "Bearer " + localStorage.getItem("@token")
         }),
       });
   }
