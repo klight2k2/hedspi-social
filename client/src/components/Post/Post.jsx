@@ -9,6 +9,7 @@ import { UserContext } from '../../context/UserContext';
 import { db } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
 import PostService from '../../service/PostService';
+import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
 
 const convertTimeStamp=(time)=>{
   const date=new Timestamp(time?.seconds, time?.nanoseconds).toDate()
@@ -25,9 +26,9 @@ export default function Post({ post ,handleDeletePost}) {
   const items = [
       {
           label: (
-              <a target='_blank' rel='noopener noreferrer' href='https://www.antgroup.com'>
+              <NavLink href="/post/:id/edit">
                   Edit
-              </a>
+              </NavLink>
           ),
           key: '0',
       },

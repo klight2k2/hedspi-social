@@ -1,14 +1,13 @@
 import React from 'react'
-import Sidebar from '../components/Sidebar'
-import Chat from '../components/Chat/Chat'
+import Sidebar from '../../components/Sidebar'
+import Chat from '../../components/Chat/Chat'
 
+import "./messenger.scss"
 const Messenger = () => {
   return (
     <div className='home'>
-      <div className="container">
         <Sidebar/>
         <Chat/>
-      </div>
     </div>
   )
 }

@@ -13,7 +13,7 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
+import { SendOutlined } from '@ant-design/icons';
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
@@ -60,6 +60,7 @@ const Input = () => {
       [data.chatId + ".lastMessage"]: {
         text,
       },
+      [data.chatId+ ".isRead"]:1,
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
@@ -68,6 +69,7 @@ const Input = () => {
         text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
+      [data.chatId+ ".isRead"]:0
     });
 
     setText("");
@@ -82,8 +84,8 @@ const Input = () => {
         value={text}
       />
       <div className="send">
-        <img src={Attach} alt="" />
-        <input
+       
+        {/* <input
           type="file"
           style={{ display: "none" }}
           id="file"
@@ -91,8 +93,8 @@ const Input = () => {
         />
         <label htmlFor="file">
           <img src={Img} alt="" />
-        </label>
-        <button onClick={handleSend}>Send</button>
+        </label> */}
+        <SendOutlined  style={{ fontSize: '24px',color:"" }} onClick={handleSend}/>
       </div>
     </div>
   );

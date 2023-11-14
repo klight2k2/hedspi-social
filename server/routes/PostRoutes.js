@@ -7,12 +7,14 @@ const {
   deletePost,
   likePost,
   searchPost,
-  getPostsByUser
+  getPostsByUser,
+  getMyPosts
 } = require("../controllers/PostController");
 
 const router = express.Router();
 
 router.get('/',getAllPosts)
+router.get('/my-post',getMyPosts)
 router.get('/by-user/:uid',getPostsByUser)
 router.post("/",createPost);
 router.post("/search",searchPost)

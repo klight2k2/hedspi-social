@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
@@ -6,17 +6,15 @@ import { Menu } from 'antd';
 import { BiMessageSquareEdit } from 'react-icons/bi';
 import { useState } from 'react';
 import { AppstoreOutlined, BellOutlined, MessageOutlined, SearchOutlined } from '@ant-design/icons';
-import { Tooltip, Avatar, Space, Button, Dropdown, Input } from 'antd';
+import { Tooltip, Avatar, Space, Button, Dropdown, Input, Badge } from 'antd';
 import './navbar.scss';
-import { NavLink, createSearchParams,useNavigate } from 'react-router-dom';
-const text = <span>Title</span>;
+import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
+
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase';
 const items = [
     {
-        label: (
-            <NavLink to="profile">
-                My Profile
-            </NavLink>
-        ),
+        label: <NavLink to='profile'>My Profile</NavLink>,
         key: '0',
     },
     {
@@ -24,9 +22,9 @@ const items = [
     },
     {
         label: (
-            <a target='_blank' onClick={() => signOut(auth)} rel='noopener noreferrer' href='https://www.aliyun.com'>
+            <NavLink to='/' onClick={() => signOut(auth)}>
                 Logout
-            </a>
+            </NavLink>
         ),
         key: '1',
     },
@@ -41,25 +39,48 @@ const content = (
 const Navbar = () => {
     const { currentUser } = useContext(AuthContext);
     const [current, setCurrent] = useState('mail');
-    const [searchText,setSearchText]=useState();
+    const [searchText, setSearchText] = useState();
+    const [countUnread, setCountUnread] = useState(0);
     const onClick = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
     };
+    useEffect(() => {
+        const getChats = () => {
+            const unsub = onSnapshot(doc(db, 'userChats', currentUser.uid), (doc) => {
+                let cnt = 0;
+                console.log(
+                    'chats',
+                    Object.values(doc.data()).map((item) => {
+                        if (item?.isRead == 0) cnt++;
+                    })
+                );
+                setCountUnread(cnt);
+            });
+
+            return () => {
+                unsub();
+            };
+        };
+
+        currentUser.uid && getChats();
+    }, [currentUser.uid]);
     const navigate = useNavigate();
-    const handleSearch= ()=>{
-      navigate(`home?search=${searchText}`,{ replace: true })
-    }
+    const handleSearch = () => {
+        navigate(`home?search=${searchText}`, { replace: true });
+    };
     return (
         <div className='navbar'>
-            <NavLink className='navbar-logo'  to='/home'>
-                <img src='/icon/logo.svg' alt='' />
+            <NavLink className='navbar-logo' to='/home'>
+                <img src='/icon/hedspi.png' alt='' />
             </NavLink>
 
             <div className='navbar-search'>
-                <Input addonAfter={<SearchOutlined onClick={handleSearch}/>} placeholder='Search some post....'
-                value={searchText}
-                onChange={(e)=>setSearchText(e.target.value)}
+                <Input
+                    addonAfter={<SearchOutlined onClick={handleSearch} />}
+                    placeholder='Search some post....'
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
                 />
             </div>
 
@@ -73,9 +94,11 @@ const Navbar = () => {
                 </li>
                 <li>
                     <Tooltip title='Messages'>
-                        <NavLink to='/messenger'>
-                            <MessageOutlined size={24} style={{ fontSize: '24px' }} />
-                        </NavLink>
+                        <Badge count={countUnread}>
+                            <NavLink to='/messenger'>
+                                <MessageOutlined size={24} style={{ fontSize: '24px' }} />
+                            </NavLink>
+                        </Badge>
                     </Tooltip>
                 </li>
                 <li>

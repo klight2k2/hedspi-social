@@ -12,6 +12,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
+import { SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+
+import "./search.scss"
+
+
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
@@ -79,7 +85,8 @@ const Search = () => {
   };
   return (
     <div className="search">
-      <div className="searchForm">
+      <div className="search-input">
+        <SearchOutlined style={{fontSize:18}}/>
         <input
           type="text"
           placeholder="Find a user"
