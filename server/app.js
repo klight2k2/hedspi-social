@@ -6,6 +6,7 @@ const cors= require("cors");
 require('dotenv').config()
 const app = express();
 const PORT= process.env.PORT
+const MONGO_URL= process.env.MONGODB_URI||  "mongodb://localhost/CRUD"
 //middleware
 
 const authMiddleware =require("./config/firebase.config")
@@ -26,7 +27,7 @@ app.use("/api/post",authMiddleware, blogRouter);
 
 //configure mongoose
 mongoose.connect(
- "mongodb://localhost/CRUD",
+MONGO_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

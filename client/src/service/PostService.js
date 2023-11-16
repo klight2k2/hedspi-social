@@ -13,6 +13,17 @@ class PostService{
         
     }
 
+    getPendingPosts=async ()=>{
+        try{
+            const url=`${BaseUrl}/post/pending-post`
+            return await Http.get(url);
+        }catch(err){
+            console.log("[get pending post]",err)
+            return null;
+        }
+        
+    }
+
     likePost=async (postId)=>{
         try{
             const url=`${BaseUrl}/post/${postId}/like`

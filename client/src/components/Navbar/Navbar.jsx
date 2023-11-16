@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Menu } from 'antd';
 import { BiMessageSquareEdit } from 'react-icons/bi';
 import { useState } from 'react';
-import { AppstoreOutlined, BellOutlined, MessageOutlined, SearchOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, BellOutlined, MessageOutlined, SearchOutlined, HomeOutlined} from '@ant-design/icons';
 import { Tooltip, Avatar, Space, Button, Dropdown, Input, Badge } from 'antd';
 import './navbar.scss';
 import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
@@ -18,6 +18,10 @@ const items = [
         key: '0',
     },
     {
+        label: <NavLink to='approve-post'>Approve posts</NavLink>,
+        key: '1',
+    },
+    {
         type: 'divider',
     },
     {
@@ -26,7 +30,7 @@ const items = [
                 Logout
             </NavLink>
         ),
-        key: '1',
+        key: '2',
     },
 ];
 const content = (
@@ -71,6 +75,7 @@ const Navbar = () => {
     };
     return (
         <div className='navbar'>
+            
             <NavLink className='navbar-logo' to='/home'>
                 <img src='/icon/hedspi.png' alt='' />
             </NavLink>
@@ -85,6 +90,13 @@ const Navbar = () => {
             </div>
 
             <ul className='navbar-list'>
+                <li>
+                    <Tooltip title='Post'>
+                        <NavLink to='/home'>
+                            <HomeOutlined style={{ fontSize: '24px' }} />
+                        </NavLink>
+                    </Tooltip>
+                </li>
                 <li>
                     <Tooltip title='Post'>
                         <NavLink to='/create-post'>
@@ -115,8 +127,8 @@ const Navbar = () => {
                         }}
                     >
                         <Space>
-                            <Avatar style={{ verticalAlign: 'middle' }} size='default'>
-                                hello
+                            <Avatar src={currentUser?.photoURL} style={{ verticalAlign: 'middle' }} size='default'>
+                                {/* hello */}
                             </Avatar>
                             <p>Minh Quang Phạm</p>
                         </Space>

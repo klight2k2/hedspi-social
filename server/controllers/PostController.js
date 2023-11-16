@@ -30,9 +30,9 @@ exports.getMyPosts = async (req, res, next) => {
 };
 
 
-exports.getPendingPost = async (req, res) => {
+exports.getPostsPending = async (req, res) => {
     try {
-        const posts = await postService.getPendingPost();
+        const posts = await postService.getPostsPending();
         res.json({ data: posts, status: 'success' });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -66,6 +66,15 @@ exports.updatePost = async (req, res) => {
     }
 };
 
+
+exports.approvePost = async (req, res) => {
+    try {
+        const post = await postService.approvePost(req.params.id, "approved");
+        res.json({ data: post, status: 'success' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 exports.deletePost = async (req, res) => {
     try {
         const post = await postService.deletePost(req.params.id);

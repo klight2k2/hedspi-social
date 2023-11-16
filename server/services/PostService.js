@@ -7,14 +7,18 @@ exports.getAllPosts = async () => {
 exports.getPostsByUser = async (uid) => {
   return await PostModel.find({ is_approved: 'approved',uid:uid }).sort({ createdAt: -1 });
 };
+
+exports.getPostsPending = async () => {
+    return await PostModel.find({ is_approved: 'pending'}).sort({ createdAt: -1 });
+  };
 exports.getMyPosts = async (uid) => {
   return await PostModel.find({ uid:uid }).sort({ createdAt: -1 });
 };
 
 
-exports.getPendingPost = async () => {
-    return await PostModel.find({ is_approved: 'pending' }).sort({ createdAt: -1 });
-};
+// exports.getPendingPost = async () => {
+//     return await PostModel.find({ is_approved: 'pending' }).sort({ createdAt: -1 });
+// };
 
 exports.createPost = async (Post) => {
     return await PostModel.create(Post);

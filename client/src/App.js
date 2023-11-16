@@ -10,6 +10,7 @@ import { AuthContext } from './context/AuthContext';
 import AddPost from './components/AddPost/AddPost';
 import Layout from './pages/Layout/index.jsx';
 import Profile from './pages/Profile/Profile.jsx';
+import ApprovePost from './pages/ApprovePost/ApprovePost.jsx';
 function App() {
     const { currentUser } = useContext(AuthContext);
 
@@ -34,6 +35,7 @@ function App() {
                         }
                     >
                         <Route path='create-post' element={<AddPost />} />
+                        <Route path='approve-post' element={<ApprovePost />} />
                         <Route index path='home' element={<Home />} />
                         <Route path='messenger/' element={<Messenger />} />
                         <Route path='messenger/:id' element={<Messenger />} />

@@ -8,13 +8,15 @@ const {
   likePost,
   searchPost,
   getPostsByUser,
-  getMyPosts
+  getMyPosts,
+  getPostsPending
 } = require("../controllers/PostController");
 
 const router = express.Router();
 
 router.get('/',getAllPosts)
 router.get('/my-post',getMyPosts)
+router.get('/pending-post',getPostsPending)
 router.get('/by-user/:uid',getPostsByUser)
 router.post("/",createPost);
 router.post("/search",searchPost)
