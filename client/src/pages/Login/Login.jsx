@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import {Button} from 'antd'
+import { auth } from "../../firebase";
 
+import "./login.scss"
 const Login = () => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
@@ -22,12 +24,11 @@ const Login = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Lama Chat</span>
-        <span className="title">Login</span>
+        <img className="login-logo" src="/icon/hedspi.png" alt="" />
         <form onSubmit={handleSubmit}>
           <input type="email" placeholder="email" />
           <input type="password" placeholder="password" />
-          <button>Sign in</button>
+          <Button htmlType="submit" type="primary" size="large">Sign in</Button>
           {err && <span>Something went wrong</span>}
         </form>
         <p>You don't have an account? <Link to="/register">Register</Link></p>

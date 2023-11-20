@@ -1,7 +1,7 @@
 const PostModel = require('../models/Post');
 
-exports.getAllPosts = async () => {
-    return await PostModel.find({ is_approved: 'approved' }).sort({ createdAt: -1 });
+exports.getAll = async () => {
+    return await PostModel.find({ is_approved: 'approved',}).sort({ createdAt: -1 });
 };
 
 exports.getPostsByUser = async (uid) => {
@@ -41,6 +41,7 @@ exports.deletePost = async (id) => {
 exports.searchPost = async (searchText) => {
     const regexSearch = new RegExp(searchText);
     console.log(`regexSearch: ${regexSearch}`);
+    if(!searchText)  return await PostModel.find({ is_approved: 'approved',}).sort({ createdAt: -1 });
     return await PostModel.find(
         {
             $or: [

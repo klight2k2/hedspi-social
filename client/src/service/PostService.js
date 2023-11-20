@@ -12,6 +12,16 @@ class PostService{
         }
         
     }
+    updatePost=async (id,data)=>{
+        try{
+            const url=`${BaseUrl}/post/${id}`
+            return await Http.put(url,data);
+        }catch(err){
+            console.log("[get all post]",err)
+            return null;
+        }
+        
+    }
 
     getPendingPosts=async ()=>{
         try{

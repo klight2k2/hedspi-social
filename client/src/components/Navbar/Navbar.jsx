@@ -130,7 +130,7 @@ const Navbar = () => {
                             <Avatar src={currentUser?.photoURL} style={{ verticalAlign: 'middle' }} size='default'>
                                 {/* hello */}
                             </Avatar>
-                            <p>Minh Quang Phạm</p>
+                            <p>{currentUser?.displayName}</p>
                         </Space>
                     </Dropdown>
                 </li>

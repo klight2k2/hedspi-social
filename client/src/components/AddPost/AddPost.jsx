@@ -108,7 +108,8 @@ export default function AddPost() {
   }
 
   return (
-    <Space direction="vertical" className="create-post mt-16mt-" size={24}>
+   <div className="container">
+     <Space direction="vertical" className="create-post mt-16mt-" size={24}>
       <h2>Add post</h2>
       <Select
         mode="multiple"
@@ -135,5 +136,6 @@ export default function AddPost() {
         <Button type="primary" onClick={handlePost}>Post</Button>
       </Space>
     </Space>
+   </div>
   );
 }

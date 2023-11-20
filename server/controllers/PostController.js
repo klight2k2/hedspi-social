@@ -2,11 +2,11 @@ const postService = require('../services/PostService');
 
 exports.getAllPosts = async (req, res, next) => {
     try {
-        const posts = await postService.getAllPosts();
-        res.json({ data: posts, status: 'success' });
+        const posts = await postService.getAll();
+        res.json({ data: posts, status: 'success',message:"Happy new year" });
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ message:"get post failure" , status: "error"});
     }
 };
 
@@ -42,7 +42,7 @@ exports.getPostsPending = async (req, res) => {
 exports.createPost = async (req, res) => {
     try {
         const post = await postService.createPost(req.body);
-        res.json({ data: post, status: 'success' });
+        res.json({ data: post, status: 'success',message:"Create post successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -110,7 +110,7 @@ exports.approvePost = async (req, res, next) => {
 exports.searchPost = async (req, res, next) => {
   try {
       const checked = await postService.searchPost(req.body.searchText);
-      res.json({ data: checked, status: 'success' });
+      res.json({ data: checked, status: 'success',message:"Happy new year" });
   } catch (err) {
       res.status(500).json({
           error: err.message,

@@ -14,6 +14,14 @@ export default function ApprovePost() {
     const {listUser}= useContext(UserContext)
     const {currentUser} = useContext(AuthContext)
 
+
+    const handleApprovePost =async (id,is_approved)=>{
+        const res=await PostService.updatePost(id,{is_approved})
+        if(res){
+            handleGetPost()
+        }
+
+    }
     const handleGetPost = async () => {
         let newPosts= await PostService.getPendingPosts()
         setPosts(newPosts)
@@ -67,8 +75,8 @@ export default function ApprovePost() {
             <Divider style={{margin:'8px 0'}}></Divider>
 
                 <div className="post-action">
-                    <Button danger className='mr-8' style={{flexGrow:1}}>Reject</Button>
-                    <Button type="primary" ghost style={{flexGrow:1}}>Approve</Button>
+                    <Button danger className='mr-8' style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"rejected")}>Reject</Button>
+                    <Button type="primary" ghost style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"approved")}>Approve</Button>
                 </div>
          
         </div>

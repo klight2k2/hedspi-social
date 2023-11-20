@@ -20,11 +20,11 @@ export default function Home() {
       console.log("[searchParams]",searchParams.get("search"))
       const  searchText=searchParams.get("search")
       let posts
+      posts= await PostService.searchPost(searchText)
       if(searchText){
-          posts= await PostService.searchPost(searchText)
         }else{
 
-          posts = await PostService.getAllPost();
+        //   posts = await PostService.getAllPost();
         }
         console.log('[Home]', posts);
         setPosts(posts);
@@ -40,7 +40,7 @@ export default function Home() {
     );
     useEffect(() => {
         handleGetPost();
-    }, [searchParams]);
+    }, []);
 
     return (
         <div className='home-container'>

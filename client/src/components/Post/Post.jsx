@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { Button, Dropdown, Space, Avatar, Tag,Divider } from 'antd';
+import { Modal,Button, Dropdown, Space, Avatar, Tag,Divider,Popconfirm } from 'antd';
 import moment from 'moment';
-import { MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled,MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { doc, collection, onSnapshot, addDoc, serverTimestamp, setDoc, query, Timestamp } from 'firebase/firestore';
 
 import './post.scss';
@@ -21,8 +21,24 @@ const convertToTimeAgo = (time) => {
 
     return moment(datetime).fromNow();
 };
-
+const { confirm } = Modal;
 export default function Post({ post ,handleDeletePost}) {
+    const showDeleteConfirm = () => {
+        confirm({
+          title: 'Are you sure delete this post?',
+          icon: <ExclamationCircleFilled />,
+          content: 'Delete this post permanently',
+          okText: 'Yes',
+          okType: 'danger',
+          cancelText: 'No',
+          onOk() {
+            handleDeletePost(post._id)
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      };
   const items = [
       {
           label: (
@@ -34,7 +50,8 @@ export default function Post({ post ,handleDeletePost}) {
       },
       {
           label: (
-              <p target='_blank' rel='noopener noreferrer' href='#' onClick={()=>handleDeletePost(post._id)}>
+     
+              <p target='_blank' rel='noopener noreferrer' href='#'  onClick={showDeleteConfirm}>
                   Delete
               </p>
           ),
@@ -107,6 +124,7 @@ export default function Post({ post ,handleDeletePost}) {
                         <div className='post-username'>{postUser?.displayName}</div>
                         <div className='post-timestamp'>{convertToTimeAgo(post?.createdAt)}</div>
                     </Space>
+                    { post?.is_approved!=="pending" || <Tag  color="gold">pending</Tag>}
                 </Space>
                 {
                   currentUser.uid===post.uid? <Dropdown

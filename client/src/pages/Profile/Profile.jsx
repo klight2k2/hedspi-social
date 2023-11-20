@@ -145,9 +145,9 @@ export default function Profile() {
                     </div>
                 </Space>
             </Card>
-            {posts?.map((post) => (
+           <div > {posts?.map((post) => (
                 <Post post={post} handleDeletePost={handleDeletePost}></Post>
-            ))}
+            ))}</div>
 
             <Modal width={700} title='Chỉnh sửa thông tin cá nhân' open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <Form form={form} name='project-create' labelCol={{ span: 6 }} autoComplete='off' onFinish={onFinishEdit} onFinishFailed={onFinishFailed}>
