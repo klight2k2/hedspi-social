@@ -42,7 +42,7 @@ export default function Post({ post ,handleDeletePost}) {
   const items = [
       {
           label: (
-              <NavLink href="/post/:id/edit">
+              <NavLink to={`/post/${post._id}/edit`}>
                   Edit
               </NavLink>
           ),

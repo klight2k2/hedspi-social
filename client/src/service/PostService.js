@@ -33,6 +33,16 @@ class PostService{
         }
         
     }
+    getPostById=async (id)=>{
+        try{
+            const url=`${BaseUrl}/post/${id}`
+            return await Http.get(url);
+        }catch(err){
+            console.log("[get  post]",err)
+            return null;
+        }
+        
+    }
 
     likePost=async (postId)=>{
         try{
@@ -99,6 +109,19 @@ class PostService{
 
         } catch (err) {
             console.log("[upload post]",err)
+            return null;
+        }
+    }
+    updatePost=async (post)=>{
+        try {
+            const url=`${BaseUrl}/post/${post._id}`
+            const newPost= await Http.put(url,post);
+            // const postId= newPost.data._id
+            // await setDoc(doc(db, "comments", postId), { comments: [] });
+            console.log("[update post]",newPost);
+
+        } catch (err) {
+            console.log("[update post]",err)
             return null;
         }
     }

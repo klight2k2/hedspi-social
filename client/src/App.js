@@ -11,6 +11,7 @@ import AddPost from './components/AddPost/AddPost';
 import Layout from './pages/Layout/index.jsx';
 import Profile from './pages/Profile/Profile.jsx';
 import ApprovePost from './pages/ApprovePost/ApprovePost.jsx';
+import EditPost from './components/EditPost/EditPost.jsx';
 function App() {
     const { currentUser } = useContext(AuthContext);
 
@@ -35,6 +36,7 @@ function App() {
                         }
                     >
                         <Route path='create-post' element={<AddPost />} />
+                        <Route path='post/:id/edit' element={<EditPost />} />
                         <Route path='approve-post' element={<ApprovePost />} />
                         <Route index path='home' element={<Home />} />
                         <Route path='messenger/' element={<Messenger />} />

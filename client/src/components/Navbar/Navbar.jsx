@@ -83,7 +83,7 @@ const Navbar = () => {
             <div className='navbar-search'>
                 <Input
                     addonAfter={<SearchOutlined onClick={handleSearch} />}
-                    placeholder='Search some post....'
+                    placeholder='Enter tag or content to search post....'
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />
@@ -108,16 +108,16 @@ const Navbar = () => {
                     <Tooltip title='Messages'>
                         <Badge count={countUnread}>
                             <NavLink to='/messenger'>
-                                <MessageOutlined size={24} style={{ fontSize: '24px' }} />
+                                <MessageOutlined size={24} style={{ fontSize: '22px' }} />
                             </NavLink>
                         </Badge>
                     </Tooltip>
                 </li>
-                <li>
+                {/* <li>
                     <Tooltip title='Notifications'>
                         <BellOutlined size={24} style={{ fontSize: '24px' }} />
                     </Tooltip>
-                </li>
+                </li> */}
                 <li>
                     <Dropdown
                         className='avatar'

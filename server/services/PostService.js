@@ -48,6 +48,7 @@ exports.searchPost = async (searchText) => {
                 { $text: { $search: regexSearch } },
                
             ],
+            is_approved:'approved'
         },
         { score: { $meta: 'textScore' } }
     )

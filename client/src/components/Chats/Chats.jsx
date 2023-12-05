@@ -7,35 +7,28 @@ import { SearchOutlined } from '@ant-design/icons';
 import { db } from '../../firebase';
 import { convertTimeStamp, convertToTimeAgo } from '../../utils/timeUtil';
 import './chat.scss';
+import { UserContext } from '../../context/UserContext';
 const Chats = () => {
     const [chats, setChats] = useState([]);
 
     const { currentUser } = useContext(AuthContext);
+    const {listUser}= useContext(UserContext)
     const { dispatch, data } = useContext(ChatContext);
 
     const [username, setUsername] = useState('');
-    const [user, setUser] = useState(null);
+    const [users, setUsers] = useState(null);
     const [err, setErr] = useState(false);
     const [isFocus,setIsFocus]=useState(false);
 
     const handleSearch = async () => {
-        const q = query(collection(db, 'users'), where('displayName', '>=', username), where('displayName', '<', username + '\uf8ff'));
-
-        try {
-            const querySnapshot = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                setUser(doc.data());
-                console.log(doc.data());
-            });
-        } catch (err) {
-            setErr(true);
-        }
+       const filterUsers= Object.values(listUser).filter(user=>user.displayName.toLowerCase().includes(username.toLowerCase()))
+        setUsers(filterUsers)
     };
 
     const handleKey = (e) => {
         e.code === 'Enter' && handleSearch();
     };
-    const handleSelect = async () => {
+    const handleSelect = async (user) => {
         //check whether the group(chats in firestore) exists, if not create
         const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid;
         try {
@@ -68,7 +61,7 @@ const Chats = () => {
             handleSelectChat(user)
         } catch (err) {}
 
-        setUser(null);
+        setUsers(null);
         setUsername('');
     };
     const [isChildFocused, setChildFocused] = useState(false);
@@ -116,14 +109,14 @@ const Chats = () => {
                 <div>
                     <div className='search-list'></div>
                 </div>
-                {user && (
-                    <div className='userChat' onClick={handleSelect}>
+                {users?.length >0  && users.map(user=>(
+                    <div className='userChat' onClick={()=>handleSelect(user)}>
                         <img src={user.photoURL} alt='' />
                         <div className='userChatInfo'>
                             <span>{user.displayName}</span>
                         </div>
                     </div>
-                )}
+                ))}
             </div>
           {
             isChildFocused ?"":   <div className='chats'>
