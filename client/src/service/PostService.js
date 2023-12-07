@@ -12,8 +12,9 @@ class PostService{
         }
         
     }
-    updatePost=async (id,data)=>{
+    approvePost=async (id,data)=>{
         try{
+            console.log(id,data,"post")
             const url=`${BaseUrl}/post/${id}`
             return await Http.put(url,data);
         }catch(err){

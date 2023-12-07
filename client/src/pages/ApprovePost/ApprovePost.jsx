@@ -16,7 +16,7 @@ export default function ApprovePost() {
 
 
     const handleApprovePost =async (id,is_approved)=>{
-        const res=await PostService.updatePost(id,{is_approved})
+        const res=await PostService.approvePost(id,{is_approved})
         if(res){
             handleGetPost()
         }
