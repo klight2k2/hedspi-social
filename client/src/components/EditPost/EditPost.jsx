@@ -86,7 +86,7 @@ export default function EditPost() {
       message.open(
         {
           type: 'error',
-          content: 'Please select at least 1 tag',
+          content: 'ハッシュタグを少なくとも1つ選択してください。',
         }
       )
         return;
@@ -96,7 +96,7 @@ export default function EditPost() {
       message.open(
         {
           type: 'error',
-          content: "Please input your content",
+          content: "あなたのコンテンツを入力してください。",
         }
       )
       return;
@@ -120,7 +120,7 @@ export default function EditPost() {
   return (
    <div className="container">
      <Space direction="vertical" className="create-post mt-16mt-" size={24}>
-      <h2>Add post</h2>
+      <h2>投稿を作成</h2>
       <Select
         mode="multiple"
         placeholder="Select tags"
@@ -142,8 +142,8 @@ export default function EditPost() {
       />
 
       <Space className="float-btn">
-        <Button >Cancel</Button>
-        <Button type="primary" onClick={handlePost}>Post</Button>
+        <Button >キャンセル</Button>
+        <Button type="primary" onClick={handlePost}>シェア</Button>
       </Space>
     </Space>
    </div>

@@ -294,6 +294,15 @@
   padding-bottom: 32px !important;
 }
 
+
+.user-link{
+  color: #000!important;
+
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
 .file-upload{
   display: flex;
   flex-direction: column;

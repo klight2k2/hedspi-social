@@ -102,9 +102,9 @@ const Chats = () => {
             <div className='search'>
                 <div className='search-input'>
                     <SearchOutlined style={{ fontSize: 18 }} />
-                    <input   onBlur={handleChildBlur}  onFocus={handleChildFocus} type='text' placeholder='Find a user' onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} value={username} />
+                    <input   onBlur={handleChildBlur}  onFocus={handleChildFocus} type='text' placeholder='ウーザを検索' onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} value={username} />
                 </div>
-                {err && <span>User not found!</span>}
+                {err && <span>ユーザーが見つかりません!</span>}
 
                 <div>
                     <div className='search-list'></div>

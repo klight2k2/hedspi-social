@@ -7,6 +7,9 @@ import Input from '../Input';
 import { ChatContext } from '../../context/ChatContext';
 import { Avatar } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
+
+
 const Chat = () => {
     const { data } = useContext(ChatContext);
 
@@ -15,8 +18,13 @@ const Chat = () => {
         <div className='chat'>
             <div className='chat-header'>
                 <div className='chatInfo'>
-                    <Avatar size={48} src={data.user.photoURL}></Avatar>
-                    <p>{data.user.displayName}</p>
+                    <NavLink className='user-link' to={`/profile/${data.user.uid}`}>
+                        <Avatar  size={48} src={data.user?.photoURL}></Avatar>
+                    </NavLink>
+                    <NavLink className='user-link ml-8' to={ `/profile/${data.user.uid}`}>
+                        <div className=''>{data.user?.displayName}</div>
+                    </NavLink>
+                  
                 </div>
                 <InfoCircleOutlined style={{ fontSize: 24 }} />
             </div>

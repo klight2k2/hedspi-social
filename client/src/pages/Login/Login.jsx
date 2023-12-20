@@ -26,12 +26,12 @@ const Login = () => {
       <div className="formWrapper">
         <img className="login-logo" src="/icon/hedspi.png" alt="" />
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
-          <Button htmlType="submit" type="primary" size="large">Sign in</Button>
+          <input type="email" placeholder="メールアドレス" />
+          <input type="password" placeholder="パスワード" />
+          <Button htmlType="submit" type="primary" size="large">ログイン</Button>
           {err && <span>Something went wrong</span>}
         </form>
-        <p>You don't have an account? <Link to="/register">Register</Link></p>
+        <p>アカウントをお持ちでないですか？ <Link to="/register">登録する</Link></p>
       </div>
     </div>
   );

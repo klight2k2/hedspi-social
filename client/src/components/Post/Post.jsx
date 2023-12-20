@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { Modal,Button, Dropdown, Space, Avatar, Tag,Divider,Popconfirm } from 'antd';
+import { Modal, Button, Dropdown, Space, Avatar, Tag, Divider, Popconfirm } from 'antd';
 import moment from 'moment';
-import { ExclamationCircleFilled,MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled, MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { doc, collection, onSnapshot, addDoc, serverTimestamp, setDoc, query, Timestamp } from 'firebase/firestore';
 
 import './post.scss';
@@ -12,44 +12,38 @@ import PostService from '../../service/PostService';
 import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
 import { convertTimeStamp, convertToTimeAgo } from '../../utils/timeUtil';
 
-
 const { confirm } = Modal;
-export default function Post({ post ,handleDeletePost}) {
+export default function Post({ post, handleDeletePost }) {
     const showDeleteConfirm = () => {
         confirm({
-          title: 'Are you sure delete this post?',
-          icon: <ExclamationCircleFilled />,
-          content: 'Delete this post permanently',
-          okText: 'Yes',
-          okType: 'danger',
-          cancelText: 'No',
-          onOk() {
-            handleDeletePost(post._id)
-          },
-          onCancel() {
-            console.log('Cancel');
-          },
+            title: 'この投稿を本当に削除してもよろしいですか？',
+            icon: <ExclamationCircleFilled />,
+            content: 'この投稿を永久に削除しま',
+            okText: '削除する',
+            okType: 'danger',
+            cancelText: 'キャンセル',
+            onOk() {
+                handleDeletePost(post._id);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
         });
-      };
-  const items = [
-      {
-          label: (
-              <NavLink to={`/post/${post._id}/edit`}>
-                  Edit
-              </NavLink>
-          ),
-          key: '0',
-      },
-      {
-          label: (
-     
-              <p target='_blank' rel='noopener noreferrer' href='#'  onClick={showDeleteConfirm}>
-                  Delete
-              </p>
-          ),
-          key: '1',
-      },
-  ];
+    };
+    const items = [
+        {
+            label: <NavLink to={`/post/${post._id}/edit`}>投稿を編集</NavLink>,
+            key: '0',
+        },
+        {
+            label: (
+                <p target='_blank' rel='noopener noreferrer' href='#' onClick={showDeleteConfirm}>
+                    削除
+                </p>
+            ),
+            key: '1',
+        },
+    ];
     const [isChildFocused, setChildFocused] = useState(false);
     const { listUser } = useContext(UserContext);
     const { currentUser } = useContext(AuthContext);
@@ -61,10 +55,6 @@ export default function Post({ post ,handleDeletePost}) {
     const handleChildFocus = () => {
         setChildFocused(true);
     };
-
-
-     
-    
 
     const handleChildBlur = () => {
         setChildFocused(false);
@@ -111,46 +101,41 @@ export default function Post({ post ,handleDeletePost}) {
         <div className='post mt-16'>
             <div className='post-header'>
                 <Space>
-                    <NavLink to={currentUser.uid===post.uid?"me":`/profile/${post.uid}`}>
-
-                    <Avatar src={postUser?.photoURL}></Avatar>
+                    <NavLink className='user-link' to={currentUser.uid === post.uid ? 'me' : `/profile/${post.uid}`}>
+                        <Avatar src={postUser?.photoURL}></Avatar>
                     </NavLink>
                     <Space direction='vertical' size={4}>
-                    <NavLink to={currentUser.uid===post.uid?"/me":`/profile/${post.uid}`}>
-
-                        <div className='post-username'>{postUser?.displayName}</div>
-                    </NavLink>
+                        <NavLink className='user-link' to={currentUser.uid === post.uid ? '/me' : `/profile/${post.uid}`}>
+                            <div className='post-username'>{postUser?.displayName}</div>
+                        </NavLink>
                         <div className='post-timestamp'>{convertToTimeAgo(post?.createdAt)}</div>
                     </Space>
-                    { post?.is_approved!=="pending" || <Tag  color="gold">pending</Tag>}
+                    {post?.is_approved !== 'pending' || <Tag color='gold'>pending</Tag>}
                 </Space>
-                {
-                  currentUser.uid===post.uid? <Dropdown
-                  className='avatar'
-                  placement='bottomRight'
-                  menu={{
-                      items,
-                  }}
-              >
-                  <MoreOutlined style={{ fontSize: 24 }} />
-              </Dropdown>:""
-                }
-               
+                {currentUser.uid === post.uid ? (
+                    <Dropdown
+                        className='avatar'
+                        placement='bottomRight'
+                        menu={{
+                            items,
+                        }}
+                    >
+                        <MoreOutlined style={{ fontSize: 24 }} />
+                    </Dropdown>
+                ) : (
+                    ''
+                )}
             </div>
-           
+
             <div className='post-content' dangerouslySetInnerHTML={{ __html: post.content }}></div>
-            <input type="checkbox" name="readmore" id="readmore">
-              
-            </input>
-         
+            <input type='checkbox' name='readmore' id='readmore'></input>
+
             <div className='post-tag mt-16'>
-                {
-                  post.tags?.map(tag=>{
-                    return <Tag>#{tag}</Tag>
-                  })
-                }
+                {post.tags?.map((tag) => {
+                    return <Tag>#{tag}</Tag>;
+                })}
             </div>
-            <Divider style={{margin:'8px 0'}}></Divider>
+            <Divider style={{ margin: '8px 0' }}></Divider>
 
             <div className='post-action'>
                 <Space className='post-like'>
@@ -163,30 +148,35 @@ export default function Post({ post ,handleDeletePost}) {
                 </Space>
                 <div className='post-comment'>コメント{listComment.length}件 </div>
             </div>
-            <Divider style={{margin:'8px 0'}}></Divider>
+            <Divider style={{ margin: '8px 0' }}></Divider>
             <Space direction='vertical'>
-                {listComment.map((comment,id) => {
-                  const commentUser=listUser[comment.uid]
+                {listComment.map((comment, id) => {
+                    const commentUser = listUser[comment.uid];
 
-                  return   <div className='post-comment-container' key={id}>
-                        <Avatar src={commentUser?.photoURL}></Avatar>
-                        <Space  direction='vertical' size={4} className='ml-16'>
-
-                        <Space className='post-comments' size={4}>
-                            <div className='post-username'>{commentUser?.displayName}</div>
-                          <p>{comment.content}</p>
-                        </Space>
-                            <div className='post-timestamp'>{convertToTimeAgo(convertTimeStamp(comment?.timeStamp))}</div>
-                        </Space>
-                    </div>;
+                    return (
+                        <div className='post-comment-container' key={id}>
+                            <NavLink className='user-link' to={currentUser.uid === post.uid ? 'me' : `/profile/${commentUser.uid}`}>
+                                <Avatar src={commentUser?.photoURL}></Avatar>
+                            </NavLink>
+                            <Space direction='vertical' size={4} className='ml-16'>
+                                <Space className='post-comments' size={4}>
+                                    <NavLink className='user-link post-username' to={currentUser.uid === post.uid ? '/me' : `/profile/${commentUser.uid}`}>
+                                        <div className=''>{commentUser?.displayName}</div>
+                                    </NavLink>
+                                    <p>{comment.content}</p>
+                                </Space>
+                                <div className='post-timestamp'>{convertToTimeAgo(convertTimeStamp(comment?.timeStamp))}</div>
+                            </Space>
+                        </div>
+                    );
                 })}
             </Space>
             <Space className={`post-add `}>
-            <Avatar className='add-cmt' src={currentUser?.photoURL}></Avatar>
+                <Avatar className='add-cmt' src={currentUser?.photoURL}></Avatar>
                 <input
                     type='text'
                     value={comment}
-                    className={`post-input ${isChildFocused ? 'active':''}`}
+                    className={`post-input ${isChildFocused ? 'active' : ''}`}
                     onFocus={handleChildFocus}
                     onChange={(e) => {
                         setComment(e.target.value);

@@ -75,8 +75,8 @@ export default function ApprovePost() {
             <Divider style={{margin:'8px 0'}}></Divider>
 
                 <div className="post-action">
-                    <Button danger className='mr-8' style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"rejected")}>Reject</Button>
-                    <Button type="primary" ghost style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"approved")}>Approve</Button>
+                    <Button danger className='mr-8' style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"rejected")}>拒否</Button>
+                    <Button type="primary" ghost style={{flexGrow:1}} onClick={()=>handleApprovePost(post._id,"approved")}>承認</Button>
                 </div>
          
         </div>

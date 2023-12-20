@@ -79,7 +79,7 @@ const Input = () => {
     <div className="input">
       <input
         type="text"
-        placeholder="Type something..."
+        placeholder="メッセージ を入力..."
         onChange={(e) => setText(e.target.value)}
         value={text}
       />

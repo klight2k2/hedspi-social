@@ -78,7 +78,7 @@ const Navbar = () => {
             <div className='navbar-search'>
                 <Input
                     addonAfter={<SearchOutlined onClick={handleSearch} />}
-                    placeholder='Enter tag or content to search post....'
+                    placeholder='キーワードやハッシュタグで検索...'
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                 />

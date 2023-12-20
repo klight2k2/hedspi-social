@@ -17,7 +17,9 @@ function App() {
     const { currentUser } = useContext(AuthContext);
 
     const ProtectedRoute = ({ children }) => {
-        if (!currentUser) {
+        console.log('protected route',currentUser?.uid==undefined)
+        if (!currentUser || currentUser?.uid==undefined) {
+            console.log('currentUser route',currentUser)
             return <Navigate to='/login' />;
         }
 
@@ -27,7 +29,6 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/'>
                     <Route
                         path='/'
                         element={
@@ -45,7 +46,6 @@ function App() {
                         <Route path='me' element={<MyProfile />} />
                         <Route path='profile/:id' element={<Profile />} />
                     </Route>
-                </Route>
                 <Route path='login' element={<Login />} />
                 <Route path='register' element={<Register />} />
             </Routes>
