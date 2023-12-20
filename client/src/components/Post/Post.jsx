@@ -119,9 +119,15 @@ export default function Post({ post ,handleDeletePost}) {
         <div className='post mt-16'>
             <div className='post-header'>
                 <Space>
+                    <NavLink to={currentUser.uid===post.uid?"me":`/profile/${post.uid}`}>
+
                     <Avatar src={postUser?.photoURL}></Avatar>
+                    </NavLink>
                     <Space direction='vertical' size={4}>
+                    <NavLink to={currentUser.uid===post.uid?"/me":`/profile/${post.uid}`}>
+
                         <div className='post-username'>{postUser?.displayName}</div>
+                    </NavLink>
                         <div className='post-timestamp'>{convertToTimeAgo(post?.createdAt)}</div>
                     </Space>
                     { post?.is_approved!=="pending" || <Tag  color="gold">pending</Tag>}
