@@ -14,11 +14,11 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
 const items = [
     {
-        label: <NavLink to='profile'>My Profile</NavLink>,
+        label: <NavLink to='profile'>マイプロフィール</NavLink>,
         key: '0',
     },
     {
-        label: <NavLink to='approve-post'>Approve posts</NavLink>,
+        label: <NavLink to='approve-post'>ポスト管理</NavLink>,
         key: '1',
     },
     {
@@ -27,18 +27,13 @@ const items = [
     {
         label: (
             <NavLink to='/' onClick={() => signOut(auth)}>
-                Logout
+                ログアウト
             </NavLink>
         ),
         key: '2',
     },
 ];
-const content = (
-    <div>
-        <Button onClick={() => signOut(auth)}>logout</Button>
-        <p>Content</p>
-    </div>
-);
+
 
 const Navbar = () => {
     const { currentUser } = useContext(AuthContext);
@@ -91,21 +86,21 @@ const Navbar = () => {
 
             <ul className='navbar-list'>
                 <li>
-                    <Tooltip title='Post'>
+                    <Tooltip title='ホーム'>
                         <NavLink to='/home'>
                             <HomeOutlined style={{ fontSize: '24px' }} />
                         </NavLink>
                     </Tooltip>
                 </li>
                 <li>
-                    <Tooltip title='Post'>
+                    <Tooltip title='ポスト'>
                         <NavLink to='/create-post'>
                             <BiMessageSquareEdit size={24} />
                         </NavLink>
                     </Tooltip>
                 </li>
                 <li>
-                    <Tooltip title='Messages'>
+                    <Tooltip title='メッセンジャー'>
                         <Badge count={countUnread}>
                             <NavLink to='/messenger'>
                                 <MessageOutlined size={24} style={{ fontSize: '22px' }} />

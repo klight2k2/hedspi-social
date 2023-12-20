@@ -10,17 +10,9 @@ import { db } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
 import PostService from '../../service/PostService';
 import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
+import { convertTimeStamp, convertToTimeAgo } from '../../utils/timeUtil';
 
-const convertTimeStamp=(time)=>{
-  const date=new Timestamp(time?.seconds, time?.nanoseconds).toDate()
-    return date
-}
 
-const convertToTimeAgo = (time) => {
-    const datetime = new Date(time);
-
-    return moment(datetime).fromNow();
-};
 const { confirm } = Modal;
 export default function Post({ post ,handleDeletePost}) {
     const showDeleteConfirm = () => {
@@ -163,7 +155,7 @@ export default function Post({ post ,handleDeletePost}) {
                     )}
                     {like}
                 </Space>
-                <div className='post-comment'>{listComment.length} comments</div>
+                <div className='post-comment'>コメント{listComment.length}件 </div>
             </div>
             <Divider style={{margin:'8px 0'}}></Divider>
             <Space direction='vertical'>
@@ -194,10 +186,10 @@ export default function Post({ post ,handleDeletePost}) {
                         setComment(e.target.value);
                     }}
                     onBlur={handleChildBlur}
-                    placeholder='Add your comment...'
+                    placeholder='コメントを入力...'
                 />
                 <Button type='link' onClick={handleComment}>
-                    Post
+                    ポスト
                 </Button>
             </Space>
         </div>
