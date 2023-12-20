@@ -12,27 +12,6 @@ import { NavLink, createSearchParams, useNavigate } from 'react-router-dom';
 
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase';
-const items = [
-    {
-        label: <NavLink to='profile'>マイプロフィール</NavLink>,
-        key: '0',
-    },
-    {
-        label: <NavLink to='approve-post'>ポスト管理</NavLink>,
-        key: '1',
-    },
-    {
-        type: 'divider',
-    },
-    {
-        label: (
-            <NavLink to='/' onClick={() => signOut(auth)}>
-                ログアウト
-            </NavLink>
-        ),
-        key: '2',
-    },
-];
 
 
 const Navbar = () => {
@@ -44,6 +23,27 @@ const Navbar = () => {
         console.log('click ', e);
         setCurrent(e.key);
     };
+    const items = [
+        {
+            label: <NavLink to={`profile/${currentUser.uid}`}>マイプロフィール</NavLink>,
+            key: '0',
+        },
+        {
+            label: <NavLink to='approve-post'>ポスト管理</NavLink>,
+            key: '1',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: (
+                <NavLink to='/' onClick={() => signOut(auth)}>
+                    ログアウト
+                </NavLink>
+            ),
+            key: '2',
+        },
+    ];
     useEffect(() => {
         const getChats = () => {
             const unsub = onSnapshot(doc(db, 'userChats', currentUser.uid), (doc) => {

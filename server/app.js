@@ -6,7 +6,7 @@ const cors= require("cors");
 require('dotenv').config()
 const app = express();
 const PORT= process.env.PORT
-const MONGO_URL= "mongodb://localhost/CRUD"
+const MONGO_URL=  "mongodb://127.0.0.1:27017/CRUD"
 //middleware
 
 const authMiddleware =require("./config/firebase.config")

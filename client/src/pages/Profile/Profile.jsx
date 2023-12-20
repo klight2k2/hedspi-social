@@ -22,9 +22,11 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { message } from 'antd';
+import { useNavigate, useParams  } from "react-router-dom";
 
 export default function Profile() {
   const { currentUser } = useContext(AuthContext);
+  const [profile,setProfile]=useState({});
   const { listUser } = useContext(UserContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -32,8 +34,18 @@ export default function Profile() {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.photoURL);
+
+  const { id } = useParams()
+  useEffect(()=>{
+    console.log("profile id",id)
+    const profile=listUser[id]
+    console.log("profile user",profile)
+    setProfile(profile);
+
+  },[id,listUser])
   const handleGetPost = async () => {
-    let posts = await PostService.getMyPosts();
+
+    let posts = await PostService.getPostByUser(profile.uid);
     console.log('[Profile]', posts);
     setPosts(posts);
   };
@@ -46,103 +58,7 @@ export default function Profile() {
     },
     [posts]
   );
-  const handleUpload = async ({ displayName, story }) => {
-    let url = currentUser?.photoURL;
-    if (selectedFile) {
-      console.log('selectedFile', selectedFile);
-      const storageRef = ref(storage, `${currentUser?.email}`);
-      await uploadBytesResumable(storageRef, selectedFile).then(async () => {
-        await getDownloadURL(storageRef).then(async downloadURL => {
-          setPreviewUrl(downloadURL);
-          console.log('new new', displayName);
-          await updateProfile(currentUser, {
-            displayName: displayName,
-            photoURL: downloadURL,
-          });
-          //create user on firestore
-          await setDoc(doc(db, 'users', currentUser.uid), {
-            uid: currentUser?.uid,
-            email: currentUser?.email,
-            photoURL: downloadURL,
-            displayName: displayName,
-            story,
-          })
-            .then(() => {
-              message.open({
-                type: 'success',
-                content: 'Update profile successfully!',
-              });
-              setIsModalOpen(false);
-            })
-            .catch(err => {
-              message.open({ type: 'error', content: err });
-
-              console.log(err);
-            });
-        });
-      });
-    } else {
-      await updateProfile(currentUser, {
-        displayName: displayName,
-      });
-      //create user on firestore
-      await setDoc(doc(db, 'users', currentUser.uid), {
-        uid: currentUser?.uid,
-        email: currentUser?.email,
-        photoURL: previewUrl,
-        displayName: displayName,
-        story: story || '',
-      })
-        .then(() => {
-          message.open({
-            type: 'success',
-            content: 'Update profile successfully!',
-          });
-          setIsModalOpen(false);
-        })
-        .catch(err => {
-          message.open({ type: 'error', content: err });
-
-          console.log(err);
-        });
-    }
-  };
-  const handleFileChange = event => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-  const onFinishEdit = async values => {
-    await handleUpload(values);
-    console.log('Success:', { ...values, previewUrl });
-  };
-  const handleOk = async () => {
-    await form.submit();
-  };
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const showModal = () => {
-    setPreviewUrl(currentUser?.photoURL);
-    setIsModalOpen(true);
-    form.setFieldsValue({
-      displayName: currentUser.displayName,
-      story: listUser[currentUser.uid].story,
-    });
-  };
+ 
   useEffect(() => {
     const totalLike = posts.reduce((total, post) => {
       return total + post.likes.length;
@@ -151,25 +67,20 @@ export default function Profile() {
   }, [posts]);
   useEffect(() => {
     handleGetPost();
-  }, []);
+  }, [profile]);
   return (
     <div className="profile-container">
       <Card hoverable={true} className="profile mt-16 mr-16">
         <Space direction="vertical">
           <Space direction="vertical">
-            <Avatar src={currentUser.photoURL} size={100}></Avatar>
+            <Avatar src={profile?.photoURL} size={100}></Avatar>
             <Space direction="vertical">
-              <h3 className="profile-name">{currentUser.displayName} </h3>
+              <h3 className="profile-name">{profile?.displayName} </h3>
 
-              <p>{currentUser.email}</p>
+              <p>{profile?.email}</p>
             </Space>
           </Space>
-          <Button
-            onClick={showModal}
-            className="edit-btn"
-            type="text"
-            icon={<EditOutlined style={{ fontSize: 24 }} />}
-          ></Button>
+         
           <div className="post-info">
             <span className="mr-16">
               <b> {posts.length}</b> posts
@@ -195,53 +106,6 @@ export default function Profile() {
         ))}
       </div>
 
-      <Modal
-        width={700}
-        title="Chỉnh sửa thông tin cá nhân"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Form
-          form={form}
-          name="project-create"
-          labelCol={{ span: 6 }}
-          autoComplete="off"
-          onFinish={onFinishEdit}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item label="Avatar">
-            <input
-              type="file"
-              onChange={handleFileChange}
-              id="file"
-              style={{ display: 'none' }}
-            />
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-              <Avatar
-                size={148}
-                src={previewUrl}
-                className="preview-avt"
-              ></Avatar>
-              <label htmlFor="file" className="upload-icon">
-                <CameraOutlined
-                  style={{ fontSize: '20px', cursor: 'pointer' }}
-                />
-              </label>
-            </div>
-          </Form.Item>
-          <Form.Item
-            label="Tên hiển thị"
-            name="displayName"
-            rules={[{ required: true, message: 'Hãy nhập tên hiển thị' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Story" name="story">
-            <ReactQuill></ReactQuill>
-          </Form.Item>
-        </Form>
-      </Modal>
     </div>
   );
 }

@@ -9,9 +9,10 @@ import { AuthContext } from './context/AuthContext';
 
 import AddPost from './components/AddPost/AddPost';
 import Layout from './pages/Layout/index.jsx';
-import Profile from './pages/Profile/Profile.jsx';
+import MyProfile from './pages/MyProfile/MyProfile.jsx';
 import ApprovePost from './pages/ApprovePost/ApprovePost.jsx';
 import EditPost from './components/EditPost/EditPost.jsx';
+import Profile from './pages/Profile/Profile.jsx';
 function App() {
     const { currentUser } = useContext(AuthContext);
 
@@ -41,7 +42,8 @@ function App() {
                         <Route index path='home' element={<Home />} />
                         <Route path='messenger/' element={<Messenger />} />
                         <Route path='messenger/:id' element={<Messenger />} />
-                        <Route path='profile' element={<Profile />} />
+                        <Route path='me' element={<MyProfile />} />
+                        <Route path='profile/:id' element={<Profile />} />
                     </Route>
                 </Route>
                 <Route path='login' element={<Login />} />
