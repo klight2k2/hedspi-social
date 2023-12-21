@@ -96,7 +96,8 @@ const Register = () => {
           </Form.Item>
           <Form.Item
             name="email"
-            rules={[{ required: true, message: 'このフィールドは必須です。' }]}
+            rules={[{ required: true, message: 'このフィールドは必須です。' },{type:'email', message:'無効なメールアドレスです。'}]}
+
           >
             <Input placeholder="メール" />
           </Form.Item>
@@ -128,6 +129,7 @@ const Register = () => {
             size="large"
             type="primary"
             disabled={loading}
+            block
           >
             登録
           </Button>

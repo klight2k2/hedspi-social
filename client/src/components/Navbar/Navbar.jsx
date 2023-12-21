@@ -25,11 +25,11 @@ const Navbar = () => {
     };
     const items = [
         {
-            label: <NavLink to={`profile/${currentUser.uid}`}>マイプロフィール</NavLink>,
+            label: <NavLink to={`/me`}>マイプロフィール</NavLink>,
             key: '0',
         },
         {
-            label: <NavLink to='approve-post'>ポスト管理</NavLink>,
+            label: <NavLink to='/approve-post'>ポスト管理</NavLink>,
             key: '1',
         },
         {

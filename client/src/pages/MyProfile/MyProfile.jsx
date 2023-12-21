@@ -35,14 +35,7 @@ export default function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(currentUser?.photoURL);
 
-  const { id } = useParams()
-  useEffect(()=>{
-    console.log("profile id",id)
-    const profile=listUser[id]
-    console.log("profile user",profile)
-    setProfile(profile);
-
-  },[])
+ 
   const handleGetPost = async () => {
     let posts = await PostService.getMyPosts();
     console.log('[Profile]', posts);

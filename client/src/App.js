@@ -4,7 +4,7 @@ import Register from './pages/Register/Register.jsx';
 import Messenger from './pages/Messenger/Messenger.jsx';
 import './style.scss';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 
 import AddPost from './components/AddPost/AddPost';
@@ -16,15 +16,15 @@ import Profile from './pages/Profile/Profile.jsx';
 function App() {
     const { currentUser } = useContext(AuthContext);
 
-    const ProtectedRoute = ({ children }) => {
-        console.log('protected route',currentUser?.uid==undefined)
-        if (!currentUser || currentUser?.uid==undefined) {
-            console.log('currentUser route',currentUser)
+    const ProtectedRoute = useCallback(({ children }) => {
+        console.log('protected route',currentUser)
+        console.log('currentUser route',currentUser)
+        if (!currentUser || !currentUser?.uid) {
             return <Navigate to='/login' />;
         }
 
         return children;
-    };
+    },[currentUser])
 
     return (
         <BrowserRouter>

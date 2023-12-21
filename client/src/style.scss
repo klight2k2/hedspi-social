@@ -354,19 +354,13 @@ border-radius: 4px;
     }
 
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+
       width: 100%;
 
       input {
-        padding: 15px;
-        border: none;
-        width: 327px;
-        border-bottom: 1px solid #a7bcff;
-        &::placeholder {
-          color: rgb(175, 175, 175);
-        }
+        padding: 8px;
+        width: 100%;
+       
       }
 
    
