@@ -12,10 +12,10 @@ export default function AppLayout() {
             <Header style={{ background: '#fff', borderBottom: '1px solid #d9d9d9', position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
                 <Navbar></Navbar>
             </Header>
-            <Content>
+            <Content style={{minHeight:'calc(100vh - 64px)'}}>
                 <Outlet></Outlet>
             </Content>
-            {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer> */}
+            {/* <Footer style={{ textAlign: 'center' }}>hedspi social ©2023 Created 科目に落ちる</Footer> */}
         </Layout>
     );
 }

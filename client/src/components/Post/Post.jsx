@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { Modal, Button, Dropdown, Space, Avatar, Tag, Divider, Popconfirm } from 'antd';
 import moment from 'moment';
 import { ExclamationCircleFilled, MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
-import { doc, collection, onSnapshot, addDoc, serverTimestamp, setDoc, query, Timestamp } from 'firebase/firestore';
+import { doc, collection, onSnapshot, addDoc, serverTimestamp, setDoc, query, Timestamp, orderBy } from 'firebase/firestore';
 
 import './post.scss';
 import { UserContext } from '../../context/UserContext';
@@ -83,7 +83,7 @@ export default function Post({ post, handleDeletePost }) {
     }, [currentUser.uid, post.likes]);
 
     useEffect(() => {
-        const q = query(collection(db, 'posts', post._id, 'comments'));
+        const q = query(collection(db, 'posts', post._id, 'comments'),orderBy('timeStamp','asc'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             let comments = [];
             querySnapshot.forEach((doc) => {

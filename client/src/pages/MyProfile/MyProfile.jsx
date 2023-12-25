@@ -176,14 +176,14 @@ export default function Profile() {
           ></Button>
           <div className="post-info">
             <span className="mr-16">
-              <b> {posts.length}</b> posts
+              <b> {posts.length}</b> 投稿
             </span>
             <span>
-              <b>{totalLike}</b> likes
+              <b>{totalLike}</b> いいね！
             </span>
           </div>
           <div>
-            <b>Story:</b>
+            <b>物語:</b>
             <p
               dangerouslySetInnerHTML={{
                 __html: listUser[currentUser.uid]?.story,
@@ -201,10 +201,12 @@ export default function Profile() {
 
       <Modal
         width={700}
-        title="Chỉnh sửa thông tin cá nhân"
+        title="プロフィールを編集"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText={"保存"}
+        cancelText={"キャンセル"}
       >
         <Form
           form={form}
@@ -214,7 +216,7 @@ export default function Profile() {
           onFinish={onFinishEdit}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Item label="Avatar">
+          <Form.Item label="プロフィール写真">
             <input
               type="file"
               onChange={handleFileChange}
@@ -235,13 +237,13 @@ export default function Profile() {
             </div>
           </Form.Item>
           <Form.Item
-            label="Tên hiển thị"
+            label="名前"
             name="displayName"
             rules={[{ required: true, message: 'Hãy nhập tên hiển thị' }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item label="Story" name="story">
+          <Form.Item label="物語" name="story">
             <ReactQuill></ReactQuill>
           </Form.Item>
         </Form>

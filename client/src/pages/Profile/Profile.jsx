@@ -99,11 +99,15 @@ export default function Profile() {
           </div>
         </Space>
       </Card>
-      <div>
+      <div style={{minWidth:600}}>
         {' '}
         {posts?.map(post => (
           <Post post={post} handleDeletePost={handleDeletePost}></Post>
         ))}
+
+        {
+          posts.length <=0 && "No data"
+        }
       </div>
 
     </div>

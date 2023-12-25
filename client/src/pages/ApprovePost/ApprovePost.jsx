@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import PostService from '../../service/PostService';
-import { Button, Dropdown, Space, Avatar, Tag,Divider } from 'antd';
+import { Button, Dropdown, Space, Avatar, Tag,Divider,Empty } from 'antd';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { UserContext } from '../../context/UserContext';
@@ -81,6 +81,10 @@ export default function ApprovePost() {
          
         </div>
         })
+      
+    }
+    {
+        posts.length <=0 && <Empty description={"現在は審査待ちの投稿はありません。"} />
     }
     </div>
   )
