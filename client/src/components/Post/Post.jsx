@@ -16,10 +16,10 @@ const { confirm } = Modal;
 export default function Post({ post, handleDeletePost }) {
     const showDeleteConfirm = () => {
         confirm({
-            title: 'この投稿を本当に削除してもよろしいですか？',
+            title: 'この投稿を本当に削除しますか？',
             icon: <ExclamationCircleFilled />,
-            content: 'この投稿を永久に削除しま',
-            okText: '削除する',
+            content: 'この投稿を永久に削除します。',
+            okText: '削除',
             okType: 'danger',
             cancelText: 'キャンセル',
             onOk() {

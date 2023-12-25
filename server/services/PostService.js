@@ -39,6 +39,7 @@ exports.deletePost = async (id) => {
     return await PostModel.findByIdAndDelete(id);
 };
 exports.searchPost = async (searchText) => {
+    if(searchText===undefined) searchText=''
     const regexSearch = new RegExp(searchText);
     console.log(`regexSearch: ${regexSearch}`);
     if(!searchText)  return await PostModel.find({ is_approved: 'approved',}).sort({ createdAt: -1 });

@@ -6,7 +6,7 @@ import AddPost from '../../components/AddPost/AddPost';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import './home.scss';
 
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Empty } from 'antd';
 import PostService from '../../service/PostService';
 import { useCallback } from 'react';
 
@@ -47,6 +47,9 @@ export default function Home() {
             {posts?.map((post) => (
                 <Post  post={post} handleDeletePost={handleDeletePost}></Post>
             ))}
+            {
+                posts.length <=0 && <Empty description="結果がありません。" />
+            }
         </div>
     );
 }
