@@ -74,7 +74,7 @@ export default function Profile() {
             .then(() => {
               message.open({
                 type: 'success',
-                content: 'Update profile successfully!',
+                content: 'プロフィールの更新に成功しました。',
               });
               setIsModalOpen(false);
             })
@@ -100,7 +100,7 @@ export default function Profile() {
         .then(() => {
           message.open({
             type: 'success',
-            content: 'Update profile successfully!',
+            content: 'プロフィールの更新に成功しました。',
           });
           setIsModalOpen(false);
         })

@@ -62,6 +62,12 @@ export default function Post({ post, handleDeletePost }) {
 
     const handleLike = async () => {
         const { liked } = await PostService.likePost(post._id);
+        if(like==1){
+            post.likes.push(currentUser.uid);
+        }else if(like==-1){
+            post.likes.remove(currentUser.uid);
+
+        }
         setLike(like + liked);
         setIsLiked(liked == 1);
     };
@@ -80,7 +86,9 @@ export default function Post({ post, handleDeletePost }) {
     };
     useEffect(() => {
         setIsLiked(post.likes.includes(currentUser.uid));
-    }, [currentUser.uid, post.likes]);
+        setLike(post.likes.length);
+        
+    }, [currentUser.uid, post.likes,post._id]);
 
     useEffect(() => {
         const q = query(collection(db, 'posts', post._id, 'comments'),orderBy('timeStamp','asc'));
@@ -94,9 +102,10 @@ export default function Post({ post, handleDeletePost }) {
             console.log('[list comments]', comments);
         });
         return () => {
+            console.log("cancel",post._id)
             unsubscribe();
         };
-    }, []);
+    }, [post._id]);
     return (
         <div className='post mt-16'>
             <div className='post-header'>

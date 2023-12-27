@@ -83,14 +83,14 @@ export default function Profile() {
          
           <div className="post-info">
             <span className="mr-16">
-              <b> {posts.length}</b> posts
+              <b> {posts.length}</b> 投稿
             </span>
             <span>
-              <b>{totalLike}</b> likes
+              <b>{totalLike}</b> いいね！
             </span>
           </div>
           <div>
-            <b>Story:</b>
+            <b>物語:</b>
             <p
               dangerouslySetInnerHTML={{
                 __html: listUser[currentUser.uid]?.story,
@@ -106,7 +106,7 @@ export default function Profile() {
         ))}
 
         {
-          posts.length <=0 && "No data"
+          posts.length <=0 && "投稿はありません。"
         }
       </div>
 

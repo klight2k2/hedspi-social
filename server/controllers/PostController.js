@@ -6,29 +6,28 @@ exports.getAllPosts = async (req, res, next) => {
         res.json({ data: posts, status: 'success' });
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message:"get post failure" , status: "error"});
+        res.status(500).json({ message: 'get post failure', status: 'error' });
     }
 };
 
 exports.getPostsByUser = async (req, res, next) => {
-  try {
-      const posts = await postService.getPostsByUser(req.params.uid);
-      res.json({ data: posts, status: 'success' });
-  } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err.message });
-  }
+    try {
+        const posts = await postService.getPostsByUser(req.params.uid);
+        res.json({ data: posts, status: 'success' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
 };
 exports.getMyPosts = async (req, res, next) => {
-  try {
-      const posts = await postService.getMyPosts(req.user.uid);
-      res.json({ data: posts, status: 'success' });
-  } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: err.message });
-  }
+    try {
+        const posts = await postService.getMyPosts(req.user.uid);
+        res.json({ data: posts, status: 'success' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
 };
-
 
 exports.getPostsPending = async (req, res) => {
     try {
@@ -42,7 +41,7 @@ exports.getPostsPending = async (req, res) => {
 exports.createPost = async (req, res) => {
     try {
         const post = await postService.createPost(req.body);
-        res.json({ data: post, status: 'success',message:"Create post successfully" });
+        res.json({ data: post, status: 'success', message: 'Create post successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -60,17 +59,16 @@ exports.getPostById = async (req, res) => {
 exports.updatePost = async (req, res) => {
     try {
         const post = await postService.updatePost(req.params.id, req.body);
-        res.json({ data: post, status: 'success', message:"Update post successfully " });
+        res.json({ data: post, status: 'success', message: 'Update post successfully ' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
-
 exports.approvePost = async (req, res) => {
     try {
-        const post = await postService.approvePost(req.params.id, "approved");
-        res.json({ data: post, status: 'success',message:"approve post successfully" });
+        const post = await postService.approvePost(req.params.id, 'approved');
+        res.json({ data: post, status: 'success', message: 'approve post successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -106,14 +104,13 @@ exports.approvePost = async (req, res, next) => {
     }
 };
 
-
 exports.searchPost = async (req, res, next) => {
-  try {
-      const checked = await postService.searchPost(req.body.searchText);
-      res.json({ data: checked, status: 'success',message:"searh post successfully" });
-  } catch (err) {
-      res.status(500).json({
-          error: err.message,
-      });
-  }
+    try {
+        const checked = await postService.searchPost(req.body.searchText);
+        res.json({ data: checked, status: 'success', });
+    } catch (err) {
+        res.status(500).json({
+            error: err.message,
+        });
+    }
 };
