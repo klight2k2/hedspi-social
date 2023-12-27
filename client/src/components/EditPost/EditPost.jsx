@@ -112,6 +112,14 @@ export default function EditPost() {
     }
     console.log("content",post)
     const result= await PostService.updatePost(post);
+    if(result){
+      message.open(
+        {
+          type: 'success',
+          content:'投稿の更新に成功しました。'
+        }
+      )
+    }
     console.log( result)
     navigate('/home');
     

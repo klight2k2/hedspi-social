@@ -14,6 +14,7 @@ class Http {
             .then((response) => response.json())
             .then((response) => {
                 if (response?.message) message.open({ type: 'success', content: response.message });
+                console.log(response);
                 return response.data;
             });
     };

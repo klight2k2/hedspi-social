@@ -90,8 +90,16 @@ export default function AddPost() {
     }
     console.log("content",post)
     const result= await PostService.uploadPost(post);
-    console.log( result)
-    navigate('/home');
+    if(result){
+
+      console.log( result)
+      navigate('/home');
+    }else{
+      message.open({
+        type: 'error',
+        content:'投稿の作成に失敗しました。もう一度お試しください。'
+      })
+    }
     
     
   }

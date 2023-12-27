@@ -104,9 +104,10 @@ class PostService{
         try {
             const url=`${BaseUrl}/post`
             const newPost= await Http.post(url,post);
-            const postId= newPost.data._id
+            const postId= newPost._id
             // await setDoc(doc(db, "comments", postId), { comments: [] });
             console.log("[new post]",newPost);
+            return newPost
 
         } catch (err) {
             console.log("[upload post]",err)
@@ -120,7 +121,7 @@ class PostService{
             // const postId= newPost.data._id
             // await setDoc(doc(db, "comments", postId), { comments: [] });
             console.log("[update post]",newPost);
-
+            return newPost
         } catch (err) {
             console.log("[update post]",err)
             return null;
