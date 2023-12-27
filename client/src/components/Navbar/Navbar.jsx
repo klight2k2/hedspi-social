@@ -17,7 +17,7 @@ import { db } from '../../firebase';
 const Navbar = () => {
     const { currentUser } = useContext(AuthContext);
     const [current, setCurrent] = useState('mail');
-    const [searchText, setSearchText] = useState();
+    const [searchText, setSearchText] = useState('');
     const [countUnread, setCountUnread] = useState(0);
     const onClick = (e) => {
         console.log('click ', e);

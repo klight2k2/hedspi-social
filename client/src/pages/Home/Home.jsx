@@ -84,7 +84,7 @@ export default function Home() {
                 })}
 
 {
-          posts.length <=0 && <Empty description="結果なし。"/>
+          posts.length <=0 && <Empty description="結果がありません。"/>
         }
         </div>
     );

@@ -1,3 +1,4 @@
+import {categories} from "./categories"
 import React, { useState,useContext } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -15,19 +16,7 @@ export default function AddPost() {
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
   const { currentUser } = useContext(AuthContext);
-  const tagOptions = [
-    'Culture',
-    'Language',
-    'Travel',
-    'History',
-    'Cuisine',
-    'Art',
-    'Anime',
-    'Education',
-    'Business',
-    'Cross-cultural',
-    'Japanese lifestyle',
-  ];
+ 
   // var toolbarOptions = [['bold', 'italic'], ['link', 'image']];
   var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -116,12 +105,10 @@ export default function AddPost() {
         placeholder="
         ハッシュタグを選択"
         onChange={handleChangeTag}
-      
+      options={categories}
         style={{ width: '100%' }}
       >
-        {tagOptions.map(item => {
-          return <Option value={item}>{item}</Option>;
-        })}
+        
       </Select>
       <ReactQuill
         className="quill-edit"

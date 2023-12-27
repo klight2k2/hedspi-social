@@ -8,6 +8,7 @@ import { db } from "../../firebase";
 import { addDoc, doc, serverTimestamp,collection, } from 'firebase/firestore';
 import { useNavigate, useParams  } from "react-router-dom";
 import PostService from '../../service/PostService';
+import { categories } from '../AddPost/categories';
 const { Option } = Select;
 
 export default function EditPost() {
@@ -127,10 +128,9 @@ export default function EditPost() {
         onChange={handleChangeTag}
         value={tags}
         style={{ width: '100%' }}
+        options={categories}
       >
-        {tagOptions.map((item,id) => {
-          return <Option key={id} value={item} >{item}</Option>;
-        })}
+     
       </Select>
       <ReactQuill
         className="quill-edit"
